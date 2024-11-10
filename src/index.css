@@ -1,0 +1,14 @@
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+  
+}
+:root{
+  --gray : #f5f4f4;
+  --black: #000000;
+  --orange : #fca311;
+  --white : #ffffff;
+  --blue : #0869c9;
+}

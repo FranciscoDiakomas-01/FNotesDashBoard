@@ -1,0 +1,119 @@
+
+
+#dashboard{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 20px;
+    width: 100%;
+}
+
+#dashboard article{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    height: 300px;
+    gap: 30px;
+}
+
+#dashboard article aside{
+    width: 70%;
+    height: 100%;
+    background-color: var(--orange);
+    box-shadow: 3px 3px 3ic #00000012;
+    padding: 20px;
+    color: var(--white);
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+#dashboard article aside h1{
+    font-size: 29pt;
+}
+#dashboard article aside span{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#dashboard article aside button{
+    width: 150px;
+    height: 40px;
+}
+
+#dashboard article > span{
+    background-color: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 20%;
+    box-shadow: 3px 3px 3ic #00000012;
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+#dashboard article > span i{
+    position: absolute;
+    height: 50%;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--orange);
+    right: 0;
+    border-radius: 1005% 0% 0% 0%;
+}
+
+#dashboard article > span div{
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+
+#dashboard article > span div p{
+    font-size: 14pt;
+}
+
+#dashboard aside{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    gap: 30px;
+}
+
+#dashboard aside div{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 150px;
+    background-color: var(--white);
+    position: relative;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 3px 3px 3ic #00000012;
+    color: var(--orange);
+}
+
+#dashboard aside h1{
+    font-size: 18pt;
+}
+
+#dashboard aside svg{
+    font-size: 40pt;
+    position: absolute;
+    right: 20px;
+    opacity: 0.8;
+}
+
+#dashboard > aside p{
+    font-size: 40pt;
+}
