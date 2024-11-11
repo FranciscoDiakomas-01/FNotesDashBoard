@@ -9,6 +9,8 @@ import Category from './pages/catetory/index.jsx';
 import Posts from './pages/posts/index.jsx';
 import Comment from './pages/comment/index.jsx';
 import 'react-toastify/ReactToastify.css'
+import Login from './pages/login/index.jsx';
+import UserContextProvider from './context/userContext';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -36,10 +38,15 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/login",
+    element: <Login />,
+  },
 ]);
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router}>
-    </RouterProvider>
+    <UserContextProvider>
+      <RouterProvider router={router}></RouterProvider>
+    </UserContextProvider>
   </StrictMode>
 );

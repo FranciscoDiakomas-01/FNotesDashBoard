@@ -1,8 +1,11 @@
 import './index.css'
 import { useState , useEffect } from 'react';
+import { createCategory, getAllCategory } from "../../services/category";
+import { deleteCategory , updateCategory } from '../../services/category';
+import { toast } from 'react-toastify';
 export default function Category() {
   const [category, setCategory] = useState([])
-  const [page, setPage] = useState(1);
+  const [reload, setReload] = useState(false);
   const [add, setAdd] = useState(false)
   const [updateBody, setUpdateBody] = useState({
     title: "",
@@ -11,28 +14,12 @@ export default function Category() {
   })
   const [edit, setEdit] = useState(false);
     useEffect(() => {
-        setPage(1)
-        setCategory([
-          {
-            title: "Backend",
-            id: 1,
-            description: "PHP",
-            created_at: "19/12/2024",
-          },
-          {
-            title: "Backend",
-            id: 1,
-            description: "PHP",
-            created_at: "19/12/2024",
-          },
-          {
-            title: "Backend",
-            id: 1,
-            description: "PHP",
-            created_at: "19/12/2024",
-          },
-        ]);
-    }, [page]);
+      async function getAll() {
+        const response = await getAllCategory()
+        setCategory(response)
+      }
+      getAll()
+    }, [reload]);
     return (
       <section id="category">
         {add && (
@@ -40,11 +27,41 @@ export default function Category() {
             <form>
               <h2>Cadastro</h2>
               <label>Título</label>
-              <input required placeholder="Entre com o Titulo" />
+              <input
+                required
+                placeholder="Entre com o Titulo"
+                onChange={(e) => {
+                  setUpdateBody((prev) => ({ ...prev, title: e.target.value }));
+                }}
+              />
               <label>Descrição</label>
-              <input placeholder="Entre com o Titulo (opcional)" />
+              <input
+                placeholder="Entre com o Titulo (opcional)"
+                onChange={(e) => {
+                  setUpdateBody((prev) => ({
+                    ...prev,
+                    description: e.target.value,
+                  }));
+                }}
+              />
               <div>
-                <button type="submit">Salvar</button>
+                <button
+                  type="submit"
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    const response = await createCategory(updateBody)
+                    if (response) {
+                      setReload((prev) => !prev);
+                      toast.success("Cadastrado Com Sucesso!!");
+                      return;
+                    } else {
+                      toast.error("Essa Categoria Já existe");
+                      return;
+                    }
+                  }}
+                >
+                  Cadastrar
+                </button>
                 <button
                   type="reset"
                   onClick={() => {
@@ -76,15 +93,30 @@ export default function Category() {
                 placeholder="Entre com o Titulo (opcional)"
                 value={updateBody.description}
                 onChange={(e) => {
-                  setUpdateBody((prev) => ({ ...prev, description: e.target.value }));
+                  setUpdateBody((prev) => ({
+                    ...prev,
+                    description: e.target.value,
+                  }));
                 }}
               />
               <div>
-                <button type="submit" onClick={(e) => {
-                    e.preventDefault()
-                    console.log(updateBody);
-
-                }}>Salvar</button>
+                <button
+                  type="submit"
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    const response = await updateCategory(updateBody);
+                    if (response) {
+                      setReload((prev) => !prev);
+                      toast.info("Salvo com Sucesso!");
+                      return;
+                    } else {
+                      toast.error("Erro ao Salvar");
+                      return;
+                    }
+                  }}
+                >
+                  Salvar
+                </button>
                 <button
                   type="reset"
                   onClick={() => {
@@ -111,12 +143,25 @@ export default function Category() {
             <tbody>
               {category.length > 0 &&
                 category.map((ct, index) => (
-                  <tr key={index}>
+                  <tr key={ct.id}>
                     <td>{ct.title}</td>
                     <td>{ct.description}</td>
                     <td>{ct.created_at}</td>
                     <td>
-                      <button>Del</button>
+                      <button
+                        onClick={async (e) => {
+                          e.preventDefault();
+                          const response = await deleteCategory(ct.id);
+                          if (response) {
+                            setReload((prev) => !prev);
+                            return toast.success("Deletedado Com Sucesso!");
+                          } else {
+                            return toast.error("Erro ao Deleter!");
+                          }
+                        }}
+                      >
+                        Del
+                      </button>
                     </td>
                     <td>
                       <button

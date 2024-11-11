@@ -118,3 +118,33 @@ input{
     padding-left: 10px;
     font-size: 12pt;
 }
+
+#loading{
+    display: flex;
+    height: 100dvh;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-direction: column;
+}
+
+#loading p{
+    display: flex;
+    height: 90px;
+    width: 90px;
+    border: solid 5px var(--orange);
+    border-bottom: solid transparent 5px;
+    border-radius: 50%;
+    animation: rotate .5s linear .5s infinite;
+    transition: all .5s linear;
+}
+
+@keyframes rotate {
+    
+    from{
+        transform: rotate(50deg);
+    }to{
+        transform: rotate(360deg);
+    }
+}

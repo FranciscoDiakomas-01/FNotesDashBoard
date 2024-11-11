@@ -20,6 +20,7 @@
 #Posts article > aside{
     position: absolute;
     z-index: 99999;
+    margin-top: 100px;
     background-color: transparent;
     width: 100%;
     height: 100%;
@@ -30,10 +31,9 @@
 }
 
 #Posts article > aside > div{
-    height: 90%;
+    height: 600px;
     width: 90%;
     padding: 15px;
-    margin-top: -20px;
     background-color: var(--white);
     border-radius: 8px;
     overflow: hidden;

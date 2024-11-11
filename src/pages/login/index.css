@@ -1,0 +1,38 @@
+
+#login{
+    height: 100dvh;
+    width: 100%;
+    background-color: var(--gray);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(1px);
+    position: relative;
+    overflow: hidden;
+}
+#login article{
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 50%;
+    bottom: 0;
+    background-color: var(--orange);
+    border-radius: 5050px 0% 0% 10%;
+}
+#login form{
+    height: 400px;
+    background-color: var(--white);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 99;
+    padding: 20px;
+    width: 50%;
+    box-shadow: 3px 3px 3px #00000027;
+    border-radius: 8px;
+}
+#login form button{
+    height: 45px;
+    color: var(--white);
+    background-color: var(--orange);
+}

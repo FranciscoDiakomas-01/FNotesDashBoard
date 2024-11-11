@@ -1,8 +1,7 @@
 import './index.css'
-import img from '../../assets/img/FB_IMG_17294263243518244.jpg'
-import img2 from '../../assets/img/FB_IMG_17296759522737703.jpg'
 import { useState, useEffect } from 'react';
-import { FaSearch , FaCalendar , FaRegTrashAlt , FaRegEdit ,FaDownload } from 'react-icons/fa';
+import { FaSearch, FaCalendar, FaRegTrashAlt, FaRegEdit, FaDownload } from 'react-icons/fa';
+import { getPosts } from '../../services/posts';
 export default function Posts() {
     const [Posts, setPosts] = useState([])
     const [Comments, setComments] = useState([]);
@@ -10,6 +9,7 @@ export default function Posts() {
     const [activePost , setActivePost] = useState()
     const [details , setDetails] = useState(false)
     const [update , setUpdate ] = useState(false)
+    const [pagination ,setPagination] = useState([])
     async function GetComments(id) {
       console.log(id)
       setComments([
@@ -33,91 +33,52 @@ export default function Posts() {
       
     }
     useEffect(() => {
-        setPosts([
-          {
-            title: "Teste do Titulo do meu Post",
-            status: 1,
-            id: 1,
-            cover: img,
-            created_at: "12/11/2024",
-            description:
-              "Tudo que voce precisa saber sobre o mundo das xxxxxxxx",
-          },
-          {
-            title: "Teste Tudo que voce precisa saber sobre o mundo das xxx",
-            status: 1,
-            id: 2,
-            cover: img2,
-            created_at: "12/11/2024",
-            description:
-              "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit ad velit, cupiditate quasi ipsum porro laborum ratione eos temporibus consectetur. Eos praesentium odit distinctio at? Ab saepe ipsa expedita iste?Tudo que voce precisa saber sobre o mundo das xxxxxxxLorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit ad velit, cupiditate quasi ipsum porro laborum ratione eos temporibus consectetur. Eos praesentium odit distinctio at? Ab saepe ipsa expedita iste?Tudo que voce precisa saber sobre o mundo das xxxxxxxxx",
-          },
-          {
-            title: "Teste",
-            status: 1,
-            id: 3,
-            cover: img,
-            created_at: "12/11/2024",
-            description:
-              "Tudo que voce precisa saber sobre o mundo das xxxxxxxx",
-          },
-          {
-            title: "Teste",
-            status: 1,
-            id: 4,
-            cover: img,
-            created_at: "12/11/2024",
-            description:
-              "Tudo que voce precisa saber sobre o mundo das xxxxxxxx",
-          },
-          {
-            title: "Teste",
-            status: 1,
-            id: 1,
-            cover: img,
-            created_at: "12/11/2024",
-            description:
-              "Tudo que voce precisa saber sobre o mundo das xxxxxxxx",
-          },
-          {
-            title: "Teste",
-            status: 1,
-            id: 1,
-            cover: img,
-            created_at: "12/11/2024",
-            description:
-              "Tudo que voce precisa saber sobre o mundo das xxxxxxxx",
-          },
-          {
-            title: "Teste",
-            status: 1,
-            id: 1,
-            cover: img,
-            created_at: "12/11/2024",
-            description:
-              "Tudo que voce precisa saber sobre o mundo das xxxxxxxx",
-          },
-          {
-            title: "Teste",
-            status: 1,
-            id: 1,
-            cover: img,
-            created_at: "12/11/2024",
-            description:
-              "Tudo que voce precisa saber sobre o mundo das xxxxxxxx",
-          },
-        ]);
-        setpage(1)
+        async function get() {
+          const posts = await getPosts(page, 8)
+          setPosts(posts.data);
+          setPagination((prev) => ({
+            ...prev,
+            lastpage: posts.lastPage,
+            total: posts.total,
+            currentPage: posts.currentPage,
+          }));
+      }
+      get()
     },[page])
  return (
    <section id="Posts">
      <form>
-       <button>{"<"}</button>
+       <button
+         type="button"
+         onClick={() => {
+           if (page == 1) {
+             setpage(pagination.lastpage);
+             return;
+           } else {
+             setpage((prev) => prev - 1);
+           }
+         }}
+       >
+         {"<"}
+       </button>
        <div>
          <input placeholder="Pesquise pelo nome do título da postagem" />
          <FaSearch />
        </div>
-       <button>{">"}</button>
+       <button
+         type="button"
+         onClick={() => {
+           if (pagination.lastpage > pagination.currentPage) {
+             setpage((prev) => prev + 1);
+             return;
+           } else {
+             setpage(1);
+             return;
+           }
+         }}
+       >
+         {">"}
+       </button>
      </form>
      <article>
        {details && (
@@ -256,6 +217,11 @@ export default function Posts() {
        ))}
      </article>
      <button>+</button>
+     <span>
+       <p>
+         {page} de {pagination.lastpage}
+       </p>
+     </span>
    </section>
  );
 }

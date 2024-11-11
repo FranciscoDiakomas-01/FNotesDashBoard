@@ -1,31 +1,28 @@
 import './index.css'
 import img from '../../assets/img/mortarboard.png'
-
+import { useContext, useEffect , useState } from 'react';
 import { LuLayoutGrid } from "react-icons/lu";
+import { UserContext } from '../../context/userContext'
+import GetDashBoardData from '../../services/dashBoard,';
 export default function DashBoard() {
-
-  const data = [
-    {
-      total: 20,
-    },
-    {
-      total: 40,
-    },
-    {
-      total: 20,
-    },
-    {
-      total: 10,
-    },
-  ];
+  const { user } = useContext(UserContext);
+  const [ data , setData ] = useState([])
+  useEffect(() => {
+    async function getDashBoard() {
+      const response = await GetDashBoardData()
+      setData(response)
+    }
+    getDashBoard()
+  }, []);
+  
  return (
    <section id="dashboard">
      <article>
        <aside>
          <span>
            <h1>Bem Vindo Ao Painel de Adminitador</h1>
-           <p>Funalo</p>
-           <i>fulano@gmail.com</i>
+           <p>{user[0]?.name}</p>
+           <i>{user[0]?.email}</i>
            <button>Meu Perfil</button>
          </span>
          <img src={img} alt={img} />
@@ -41,21 +38,21 @@ export default function DashBoard() {
      </article>
 
      <aside>
-       {
-         data.map((dt , index) => (
-          <div key={index}>
-             <h1>
-               {
-                 index == 0 ? 'Total Usuários' : index == 1 ? 'Total Postagens' : index == 2  ? 'Total Categorias' : 'Total Comentários'
-               }
-             </h1>
-             <p>
-               {dt.total}
-             </p>
-             <LuLayoutGrid/>
-          </div>
-        ))
-       }
+       {data.map((dt, index) => (
+         <div key={index}>
+           <h1>
+             {index == 0
+               ? "Total Usuários"
+               : index == 1
+               ? "Total Postagens"
+               : index == 2
+               ? "Total Categorias"
+               : "Total Comentários"}
+           </h1>
+           <p>{dt.total}</p>
+           <LuLayoutGrid />
+         </div>
+       ))}
      </aside>
    </section>
  );

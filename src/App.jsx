@@ -5,10 +5,32 @@ import { LuLayoutGrid } from "react-icons/lu";
 import { IoMdLogOut } from "react-icons/io";
 import { FiPieChart } from "react-icons/fi";
 import { BiText } from "react-icons/bi";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import { ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import isLogged from "./services/islogged";
 export function App() {
-  const [active , setActive] = useState(1)
+  const [active, setActive] = useState(1)
+  const [load, setLoading] = useState(true)
+  const navigate = useNavigate()
+  useEffect(() => {
+
+    async function isLogg() {
+      setLoading(true)
+      const isAdmin = await isLogged();
+      
+      setTimeout(() => {
+        if (isAdmin) {
+          navigate("/");
+        } else {
+          navigate("/login");
+        }
+        return setLoading(false);
+      }, 1500);
+      
+    }
+    isLogg()
+  }, [navigate]);
   const links = [
     {
       name: "Painel",
@@ -42,7 +64,18 @@ export function App() {
     },
   ];
   return (
-    <main id="app">
+    <>
+      {
+        load ? (
+        
+          <>
+            <main id="loading">
+              <p></p>
+              <h1>Bem Vindo a <span>FNotes</span> </h1>
+          </main>
+          </>
+        ): 
+          <main id = "app">
       <ToastContainer></ToastContainer>
       <nav>
         <a>FNotes</a>
@@ -65,7 +98,11 @@ export function App() {
             </Link>
           ))}
         </ol>
-        <button>
+              <button onClick={() => {
+                localStorage.clear()
+                sessionStorage.clear()
+                navigate("/login")
+        }}>
           <IoMdLogOut />
           <p>Sair</p>
         </button>
@@ -74,5 +111,8 @@ export function App() {
         <Outlet />
       </section>
     </main>
+      }
+    </>
+    
   );
 }
