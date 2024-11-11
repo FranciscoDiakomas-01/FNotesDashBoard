@@ -26,7 +26,7 @@ export default function DashBoard() {
            <h1>Bem Vindo Ao Painel de Adminitador</h1>
            <p>Funalo</p>
            <i>fulano@gmail.com</i>
-           <button>Criar novo Post</button>
+           <button>Meu Perfil</button>
          </span>
          <img src={img} alt={img} />
        </aside>

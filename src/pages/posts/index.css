@@ -1,0 +1,325 @@
+
+#Posts{
+    width: 100%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    gap: 20px;
+    height: 100dvh;
+}
+
+#Posts article {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    padding: 20px;
+    gap: 40px;
+    position: relative;
+
+}
+#Posts article > aside{
+    position: absolute;
+    z-index: 99999;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#Posts article > aside > div{
+    height: 90%;
+    width: 90%;
+    padding: 15px;
+    margin-top: -20px;
+    background-color: var(--white);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: var(--black);
+    gap: 10px;
+}
+#Posts article > aside main{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+#Posts article > aside main aside{
+    overflow-y: scroll;
+    width: 40%;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#Posts article > aside main aside figure{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color:#fcfcfc;
+    padding: 15px;
+    gap: 20px;
+    word-wrap: break-word;
+    border-radius: 8px;
+    box-shadow: 3px 3px 3px #00000042;
+}
+
+#Posts article > aside main aside figure header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+#Posts article > aside main aside figure  div{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+#Posts article > aside main aside figure span{
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--white);
+    background-color: var(--orange);
+    font-size: 11pt;
+}
+
+#Posts article > aside main > div{
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow: auto;
+}
+
+#Posts article > aside main > div > div{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+#Posts article > aside main img{
+    height: 400px;
+    width: 90%;
+    border-radius: 10px;
+    object-fit: fill;
+    border: solid #4444 4px;
+}
+#Posts article > aside main  h1{
+    font-size: 20pt;;
+    word-wrap: break-word;
+    width: 90%;
+}
+#Posts article > aside main  p{
+    word-wrap: break-word;
+    width: 90%;
+    font-size: 13pt;
+    line-height: 25px;
+    text-align: justify;
+}
+
+#Posts article > aside footer{
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    height: 40px;
+    align-items: center;
+}
+
+#Posts article > aside footer button  , #Posts article > aside footer a{
+    height: 40px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    flex-direction: row-reverse;
+    font-size: 12pt;
+    color: var(--white);
+    background-color: var(--blue);
+    border-radius: 4px;
+}
+#Posts article > aside footer button:last-of-type{
+    background-color: var(--red);
+}
+#Posts article > aside footer button:nth-of-type(2){
+    background-color: var(--orange);
+}
+#Posts article > figure{
+    height: 250px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    border-radius: 8px;
+    transition: all .5s linear;
+    box-shadow: 3px 3px 3px #0000001c;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+#Posts article > figure:active{
+    scale: 0.9;
+}
+
+#Posts article > figure img{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+#Posts article > figure h1{
+    font-size: 16pt;
+}
+
+#Posts article > figure div{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#Posts article > figure span{
+    z-index: 999;
+    display: flex;
+    width: 100%;
+    height: 60px;
+    background-color: var(--white);
+    position: absolute;
+    bottom: 0;
+    flex-direction: column;
+    gap: 20px;
+    color: var(--black);
+    padding: 10px;
+    justify-content: space-between;
+    transition: all .5s linear;
+}
+
+#Posts article > figure:hover span{
+    height: 110px;
+    background-color: #0000009c;
+    color: var(--white);
+}
+#Posts article > figure button{
+    width: 50%;
+    height: 40px;
+    color: var(--white);
+    background-color: var(--red);
+}
+#Posts > form {
+    width: 100%;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+#Posts form  div{
+    width: 600px;
+    position: relative;
+    transition: all .5s linear;
+}
+#Posts form  div:hover{
+    width: 800px;
+}
+
+#Posts  > form  input{
+    width: 100%;
+    height: 60px;
+    box-shadow: 3px 3px 3px #0000001c;
+    border: solid #0000001c 1px;
+    outline: none;
+    padding-left: 10px;
+    font-size: 12pt;
+}
+
+#Posts form  svg{
+    position: absolute;
+    bottom: 20px;
+    font-size: 14pt;
+    color: var(--orange);
+    right: 20px;
+}
+#Posts > form  button{
+    background-color: var(--orange);
+    height: 50px;
+    width: 50px;
+    font-size: 13pt;
+    color: var(--white);
+}
+
+#updatePostForm{
+    display: flex;;
+    width: 100%;
+    gap: 20px;
+    height: 1000%;
+}
+#updatePostForm article{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+    width: 60%;
+}
+#updatePostForm input,#updatePostForm select , #updatePostForm textarea{
+    width: 100%;
+    height: 60px;
+    box-shadow: 3px 3px 3px #0000001c;
+    border: solid #0000001c 1px;
+    outline: none;
+    padding-left: 10px;
+    font-size: 12pt;
+}
+#updatePostForm select{
+    padding: 10px 0;
+}
+#updatePostForm textarea{
+    height: 200px;
+    padding: 10px;
+}
+
+#updatePostForm  button{
+    background-color: var(--orange);
+    height: 50px;
+    width: 150px;
+    font-size: 12pt;
+    color: var(--white);
+}
+#updatePostForm  button:last-of-type{
+    background-color: var(--red);
+}
+#updatePostForm  span{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#updatePostForm aside{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 90%;
+    width: 40%;
+    position: relative;
+    border: dotted var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#updatePostForm aside input{
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+}

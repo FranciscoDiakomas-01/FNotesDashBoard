@@ -1,11 +1,12 @@
 import "./App.css";
 import { Link, Outlet } from "react-router-dom";
-import { IoSettingsOutline } from "react-icons/io5";
 import { FaRegUser , FaPaperPlane } from "react-icons/fa";
 import { LuLayoutGrid } from "react-icons/lu";
 import { IoMdLogOut } from "react-icons/io";
 import { FiPieChart } from "react-icons/fi";
+import { BiText } from "react-icons/bi";
 import { useState } from "react";
+import { ToastContainer } from "react-toastify";
 export function App() {
   const [active , setActive] = useState(1)
   const links = [
@@ -23,25 +24,26 @@ export function App() {
     },
     {
       name: "Categorias",
-      path: "/",
+      path: "/category",
       id: 3,
       icon: <LuLayoutGrid />,
     },
     {
-      name: "Comentários",
-      path: "/",
-      id: 4,
-      icon: <FaPaperPlane />,
+      name: "Postagens",
+      path: "/posts",
+      id: 5,
+      icon: <BiText />,
     },
     {
-      name: "Configurações",
-      path: "/",
-      id: 5,
-      icon: <IoSettingsOutline />,
+      name: "Comentários",
+      path: "/comment",
+      id: 4,
+      icon: <FaPaperPlane />,
     },
   ];
   return (
     <main id="app">
+      <ToastContainer></ToastContainer>
       <nav>
         <a>FNotes</a>
         <ol>

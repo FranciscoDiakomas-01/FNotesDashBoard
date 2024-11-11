@@ -60,24 +60,24 @@ export default function Users() {
     },[page])
  return (
    <section id="users">
+     <form>
+       <button>{"<"}</button>
+       <div>
+         <input placeholder="Pesquise pelo nome do usuário" />
+         <FaSearch />
+       </div>
+       <button>{">"}</button>
+     </form>
      <article>
        {users.map((user) => (
          <figure key={user.id}>
            <span>{user.name?.toString().slice(0, 2)}</span>
            <p>{user.name}</p>
            <p>{user.email}</p>
-           <button>Detalhes</button>
+           <button>Remover</button>
          </figure>
        ))}
      </article>
-     <form>
-       <button>{"<"}</button>
-       <div>
-        <input placeholder='Pesquise pelo nome do usuário'/>
-        <FaSearch/>
-       </div>
-       <button>{">"}</button>
-     </form>
    </section>
  );
 }
