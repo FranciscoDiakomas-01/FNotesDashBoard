@@ -1,7 +1,9 @@
 import './index.css'
 import { useState, useEffect } from 'react';
 import { FaSearch, FaCalendar, FaRegTrashAlt, FaRegEdit, FaDownload } from 'react-icons/fa';
-import { getPosts } from '../../services/posts';
+import { getPosts, getCommentByPOstId, deletePostById , PostCreate } from '../../services/posts';
+import { toast } from 'react-toastify';
+import { getAllCategory } from '../../services/category';
 export default function Posts() {
     const [Posts, setPosts] = useState([])
     const [Comments, setComments] = useState([]);
@@ -10,31 +12,37 @@ export default function Posts() {
     const [details , setDetails] = useState(false)
     const [update , setUpdate ] = useState(false)
     const [pagination ,setPagination] = useState([])
-    async function GetComments(id) {
-      console.log(id)
-      setComments([
-        {
-          userName: "Teste Miguel",
-          userEmail: "Teste@gmail.com",
-          content: "Pesquise pelo nome do título da postagem",
-        },
-        {
-          userName: "Teste Miguel",
-          userEmail: "Teste@gmail.com",
-          content: "Pesquise pelo nome do título da postagem",
-        },
-        {
-          userName: "Teste Miguel",
-          userEmail: "Teste@gmail.com",
-          content: "Pesquise pelo nome do título da postagem",
-        },
-      ]);
-      return
-      
+    const [add , setAdd] = useState(false)
+    const [cover , setCover] = useState()
+    const [reload , setReload] = useState(false)
+    const [category , setcategory]  = useState([])
+  async function CreatePost(post) {
+      const formdata = new FormData()
+      formdata.append("file" , post.file)
+      formdata.append("title" , post.title);
+      formdata.append("categoryId", post.categoryId);
+      formdata.append("description", post.description);
+      const response = await PostCreate(formdata)
+      console.log(response)
+      setpage(1)
     }
+  const [post, setPost] = useState({
+    title: "",
+    description: "",
+    categoryId: "",
+    file: "",
+  });
+  async function GetComments(id) {
+        const response = await getCommentByPOstId(id)
+        setComments(response.data)
+        return
+        
+      }
     useEffect(() => {
         async function get() {
           const posts = await getPosts(page, 8)
+          const response = await getAllCategory()
+          setcategory(response)
           setPosts(posts.data);
           setPagination((prev) => ({
             ...prev,
@@ -44,7 +52,7 @@ export default function Posts() {
           }));
       }
       get()
-    },[page])
+    },[page , reload])
  return (
    <section id="Posts">
      <form>
@@ -155,12 +163,23 @@ export default function Posts() {
                        <FaRegEdit />
                      </button>
                      <button
-                       onClick={() => {
+                       onClick={async () => {
                          const delted = window.confirm("Deseja eliminar?");
-
                          if (delted) {
-                           alert("Eliminado");
-                           return;
+                           const response = await deletePostById(
+                             Posts[activePost].postid
+                           );
+                           if (response) {
+                             setDetails(false);
+                             toast.success("Deletado com Sucesso!");
+
+                             setTimeout(() => {
+                               setReload(prev => !prev)
+                             },100)
+                             return 
+                           } else {
+                             return toast.error("Erro ao deletar!");
+                           }
                          }
                        }}
                      >
@@ -173,18 +192,18 @@ export default function Posts() {
                  </div>
                  <aside>
                    <h2>Comentários</h2>
-                   {Comments.length > 0 ? (
+                   {Array.isArray(Comments) && Comments.length > 0 ? (
                      Comments.map((cm, index) => (
                        <figure key={index}>
                          <header>
-                           <span>{cm.userName?.slice(0, 2)}</span>
+                           <span>{cm.username?.slice(0, 2)}</span>
                            <div>
-                             <strong>{cm.userName}</strong>
-                             <i>{cm.userEmail}</i>
+                             <strong>{cm.username}</strong>
+                             <i>{cm.useremail}</i>
                            </div>
                          </header>
 
-                         <p>{cm.content}</p>
+                         <p>{cm.commentcontent}</p>
                        </figure>
                      ))
                    ) : (
@@ -202,7 +221,7 @@ export default function Posts() {
            onClick={async () => {
              setActivePost(index);
              setDetails(true);
-             await GetComments(index);
+             await GetComments(post.postid);
            }}
          >
            <img src={post.cover} />
@@ -216,10 +235,94 @@ export default function Posts() {
          </figure>
        ))}
      </article>
-     <button>+</button>
+     <button
+       onClick={() => {
+         setCover("");
+         setAdd((prev) => !prev);
+       }}
+     >
+       {add ? "-" : "+"}
+     </button>
+     {add && (
+       <section id="addPost">
+         <form id="updatePostForm">
+           <article>
+             <label htmlFor="title">Título</label>
+             <input
+               placeholder="Entre com o título da postagem"
+               name="title"
+               id="title"
+               required
+               onChange={(e) => {
+                 setPost((prev) => ({ ...prev, title: e.target.value }));
+               }}
+             />
+             <label htmlFor="category">Categoria</label>
+             <select
+               required
+               id="category"
+               name="category"
+               onChange={(e) => {
+                 setPost((prev) => ({ ...prev, categoryId: e.target.value }));
+               }}
+             >
+               <option value={0}>Selecione Uma Categoria</option>
+               {category.map((c) => (
+                 <option key={c.id} value={c.id}>
+                   {c.title}
+                 </option>
+               ))}
+             </select>
+             <label htmlFor="description">Descrição</label>
+             <textarea
+               placeholder="Descrição do post"
+               name="description"
+               id="description"
+               onChange={(e) => {
+                 setPost((prev) => ({ ...prev, description: e.target.value }));
+               }}
+             />
+             <span>
+               <button
+                 onClick={async (e) => {
+                   e.preventDefault();
+                   await CreatePost(post);
+                 }}
+               >
+                 Salvar
+               </button>
+               <button
+                 type="reset"
+                 onClick={() => {
+                   setCover("");
+                   setAdd(false);
+                 }}
+               >
+                 Cancelar
+               </button>
+             </span>
+           </article>
+           <aside>
+             {cover && <img src={cover} />}
+             <p>
+               {cover
+                 ? "Clique Para Alterar a Imagem"
+                 : "Clique Para Adicionar uma Imagem"}
+             </p>
+             <input
+               type="file"
+               onChange={(e) => {
+                 setPost((prev) => ({ ...prev, file: e.target.files[0] }));
+                 setCover(window.URL.createObjectURL(e.target.files[0]));
+               }}
+             />
+           </aside>
+         </form>
+       </section>
+     )}
      <span>
        <p>
-         {page} de {pagination.lastpage}
+         {page} de {pagination.lastpage || 0}
        </p>
      </span>
    </section>

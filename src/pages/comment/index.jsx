@@ -3,36 +3,9 @@ import { FaSearch , FaRegTrashAlt } from 'react-icons/fa';
 import { useState , useEffect } from 'react';
 export default function Comment() {
     const [comment, setComment] = useState([])
+    const [posts, setPosts] = useState()
     useEffect(() => {
-        setComment([
-          {
-            userName: "teste da silva",
-            userEmail: "teste@gmail.com",
-            content: "eu adoro muito os seus conteudos",
-          },
-          {
-            userName: "teste da silva",
-            userEmail: "teste@gmail.com",
-            content: "eu adoro muito os seus conteudos",
-          },
-          {
-            userName: "teste da silva",
-            userEmail: "teste@gmail.com",
-            content: "eu adoro muito os seus conteudos",
-          },
-          {
-            userName: "teste da silva",
-            userEmail: "teste@gmail.com",
-            content: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Natus magni incidunt blanditiis quam fugit eveniet corporis dolor facere quaerat nihil, rem accusantium itaque ea vitae eligendi. Illo quam et esse? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad dolorem at reprehenderit voluptatum vero illum tenetur consequatur ab non nisi laboriosam aspernatur molestias.",
-          },
-          {
-            userName: "teste da silva",
-            userEmail: "teste@gmail.com",
-            content: "eu adoro muito os seus conteudos",
-          },
-          
-        ]);
-    },[])
+    }, [])
  return (
    <section id="comment">
      <form>
@@ -45,7 +18,7 @@ export default function Comment() {
      </form>
      <article>
        {comment.length > 0 &&
-         Array.isArray(comment) &&
+         Array.isArray(comment) ?
          comment.map((cm, index) => (
            <figure key={index}>
              <span>
@@ -60,7 +33,8 @@ export default function Comment() {
                </button>
              </figcaption>
            </figure>
-         ))}
+         )) : 'Po'
+        }
      </article>
    </section>
  );

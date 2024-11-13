@@ -45,11 +45,10 @@
 #comment  > article figure{
     display: flex;
     background-color: var(--white);
-    padding: 10px;
+    padding: 30px;
     box-shadow: 3px 3px 3px #00000017;
     border-radius: 4px;
-    gap: 20px;
-    height: 200px;
+    gap: 30px;
 }
 
 #comment  > article figure span{

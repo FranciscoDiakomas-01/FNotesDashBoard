@@ -61,9 +61,6 @@
     position: relative;
     transition: all .5s linear;
 }
-#users form  div:hover{
-    width: 800px;
-}
 
 #users form  input{
     width: 100%;

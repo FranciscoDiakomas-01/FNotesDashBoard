@@ -6,7 +6,6 @@
     display: flex;
     background-color: var(--gray);
     position: fixed;
-    gap: 20px;
     user-select: none;
 }
 
@@ -23,6 +22,7 @@
 }
 #app > section{
     width: 85%;
+    padding: 0 5px;
 }
 #app > nav ol{
     display: flex;

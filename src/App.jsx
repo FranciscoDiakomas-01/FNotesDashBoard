@@ -18,7 +18,6 @@ export function App() {
     async function isLogg() {
       setLoading(true)
       const isAdmin = await isLogged();
-      
       setTimeout(() => {
         if (isAdmin) {
           navigate("/");

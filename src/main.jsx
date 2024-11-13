@@ -10,7 +10,6 @@ import Posts from './pages/posts/index.jsx';
 import Comment from './pages/comment/index.jsx';
 import 'react-toastify/ReactToastify.css'
 import Login from './pages/login/index.jsx';
-import UserContextProvider from './context/userContext';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -45,8 +44,6 @@ const router = createBrowserRouter([
 ]);
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <UserContextProvider>
       <RouterProvider router={router}></RouterProvider>
-    </UserContextProvider>
   </StrictMode>
 );

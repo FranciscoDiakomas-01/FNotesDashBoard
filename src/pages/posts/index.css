@@ -227,9 +227,7 @@
     position: relative;
     transition: all .5s linear;
 }
-#Posts form  div:hover{
-    width: 800px;
-}
+
 
 #Posts  > form  input{
     width: 100%;
@@ -257,10 +255,10 @@
 }
 
 #updatePostForm{
-    display: flex;;
+    display: flex;
     width: 100%;
     gap: 20px;
-    height: 1000%;
+    height: 100%;
 }
 #updatePostForm article{
     display: flex;
@@ -307,19 +305,43 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    height: 90%;
+    height: 80%;
     width: 40%;
     position: relative;
     border: dotted var(--black);
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+}
+#updatePostForm aside img{
+    height: 100%;
+    width: 100%;
+    z-index: 9;
+    position: absolute;
 }
 
+#updatePostForm aside p{
+    font-size: 14pt;
+    z-index: 99;
+}
 #updatePostForm aside input{
     height: 100%;
     width: 100%;
     opacity: 0;
     position: absolute;
     cursor: pointer;
+}
+
+#addPost{
+    z-index: 999999999999999;
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    backdrop-filter: blur(10px);
 }
