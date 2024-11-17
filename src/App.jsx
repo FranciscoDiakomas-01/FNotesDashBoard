@@ -56,8 +56,8 @@ export function App() {
       icon: <BiText />,
     },
     {
-      name: "Comentários",
-      path: "/comment",
+      name: "Meu Perfil",
+      path: "/profile",
       id: 4,
       icon: <FaPaperPlane />,
     },

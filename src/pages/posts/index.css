@@ -4,7 +4,7 @@
     display: flex;
     position: relative;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     height: 100dvh;
 }
 
@@ -17,20 +17,18 @@
     position: relative;
 
 }
-#Posts article > aside{
+#Posts> aside{
     position: absolute;
     z-index: 99999;
-    margin-top: 100px;
-    background-color: transparent;
     width: 100%;
     height: 100%;
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#Posts article > aside > div{
+#Posts> aside > div{
     height: 600px;
     width: 90%;
     padding: 15px;
@@ -42,15 +40,16 @@
     justify-content: space-between;
     color: var(--black);
     gap: 10px;
+    margin-top: -60px;
 }
-#Posts article > aside main{
+#Posts> aside main{
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: space-between;
     gap: 10px;
 }
-#Posts article > aside main aside{
+#Posts> aside main aside{
     overflow-y: scroll;
     width: 40%;
     padding: 8px;
@@ -59,7 +58,7 @@
     gap: 20px;
 }
 
-#Posts article > aside main aside figure{
+#Posts> aside main aside figure{
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -69,19 +68,30 @@
     word-wrap: break-word;
     border-radius: 8px;
     box-shadow: 3px 3px 3px #00000042;
+    position: relative;
 }
 
-#Posts article > aside main aside figure header{
+#Posts> aside main aside figure button{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    width: 40px;
+    height: 30px;
+    background-color: var(--red);
+    color: var(--white);
+}
+
+#Posts> aside main aside figure header{
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
-#Posts article > aside main aside figure  div{
+#Posts> aside main aside figure  div{
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
-#Posts article > aside main aside figure span{
+#Posts> aside main aside figure span{
     height: 40px;
     width: 40px;
     display: flex;
@@ -93,7 +103,7 @@
     font-size: 11pt;
 }
 
-#Posts article > aside main > div{
+#Posts > aside main > div{
     width: 60%;
     height: 100%;
     display: flex;
@@ -102,24 +112,26 @@
     overflow: auto;
 }
 
-#Posts article > aside main > div > div{
+#Posts> aside main > div > div{
     display: flex;
     align-items: center;
     gap: 20px;
 }
-#Posts article > aside main img{
+
+
+#Posts> aside main img{
     height: 400px;
     width: 90%;
     border-radius: 10px;
     object-fit: fill;
     border: solid #4444 4px;
 }
-#Posts article > aside main  h1{
+#Posts> aside main  h1{
     font-size: 20pt;;
     word-wrap: break-word;
     width: 90%;
 }
-#Posts article > aside main  p{
+#Posts> aside main  p{
     word-wrap: break-word;
     width: 90%;
     font-size: 13pt;
@@ -127,7 +139,7 @@
     text-align: justify;
 }
 
-#Posts article > aside footer{
+#Posts> aside footer{
     width: 100%;
     display: flex;
     gap: 20px;
@@ -135,7 +147,7 @@
     align-items: center;
 }
 
-#Posts article > aside footer button  , #Posts article > aside footer a{
+#Posts> aside footer button  , #Posts> aside footer a{
     height: 40px;
     width: 50px;
     display: flex;
@@ -148,10 +160,10 @@
     background-color: var(--blue);
     border-radius: 4px;
 }
-#Posts article > aside footer button:last-of-type{
+#Posts> aside footer button:last-of-type{
     background-color: var(--red);
 }
-#Posts article > aside footer button:nth-of-type(2){
+#Posts> aside footer button:nth-of-type(2){
     background-color: var(--orange);
 }
 #Posts article > figure{
@@ -214,9 +226,10 @@
     color: var(--white);
     background-color: var(--red);
 }
+
 #Posts > form {
     width: 100%;
-    margin-top: 40px;
+    margin-top: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -257,8 +270,9 @@
 #updatePostForm{
     display: flex;
     width: 100%;
+    background-color: var(--white);
     gap: 20px;
-    height: 100%;
+    padding: 10px;
 }
 #updatePostForm article{
     display: flex;
@@ -294,18 +308,18 @@
 #updatePostForm  button:last-of-type{
     background-color: var(--red);
 }
+
 #updatePostForm  span{
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-
 #updatePostForm aside{
     display: flex;
     flex-direction: column;
     gap: 20px;
-    height: 80%;
+    height: 500px;
     width: 40%;
     position: relative;
     border: dotted var(--black);
@@ -323,7 +337,7 @@
 
 #updatePostForm aside p{
     font-size: 14pt;
-    z-index: 99;
+    z-index: 9;
 }
 #updatePostForm aside input{
     height: 100%;
@@ -331,10 +345,10 @@
     opacity: 0;
     position: absolute;
     cursor: pointer;
+    z-index: 99;
 }
-
 #addPost{
-    z-index: 999999999999999;
+    z-index: 999;
     width: 100%;
     position: absolute;
     height: 100%;
@@ -342,6 +356,5 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: transparent;
     backdrop-filter: blur(10px);
 }

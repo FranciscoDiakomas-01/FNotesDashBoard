@@ -1,17 +1,14 @@
 
-export async function getAllCategory() {
-    const API = await fetch(
-      `http://localhost:8080/category`,
-      {
-        headers: {
-          'authorization': localStorage.getItem("token"),
-          "Content-Type": "application/json",
-        },
-      }
-    );
+export async function getAllCategory(page, limit = 6) {
+  const API = await fetch(`http://localhost:8080/category?limit=${limit}&page=${page}`, {
+      headers: {
+        authorization: localStorage.getItem("token"),
+        "Content-Type": "application/json",
+      },
+    });
 
-    const response = await API.json();
-    return response.data
+  const response = await API.json();
+    return response
 }
 
 export async function deleteCategory(id) {
@@ -43,7 +40,6 @@ export async function updateCategory( body ) {
   });
 
     const response = await API.json();
-    console.log(response)
   if (response?.data == "updated") {
     return true;
   } else {

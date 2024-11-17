@@ -30,3 +30,21 @@ export async function AdminLogin(user) {
         return false;
     }
 }
+
+
+export async function updateAdmin(body) {
+    const API = await fetch("http://localhost:8080/user", {
+        headers: {
+            'Content-Type': 'application/json',
+            'authorization' : localStorage.getItem("token")
+        },
+        method: 'PUT',
+        body : JSON.stringify(body)
+    });
+    const response = await API.json()
+    if (response?.data) {
+        return true
+    } else {
+        return false
+    }
+}

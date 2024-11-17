@@ -1,0 +1,52 @@
+#profile{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#profile form{
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 60%;
+    background-color: var(--white);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 3px 3px 3px #00000023;
+    position: relative;
+}
+#profile form article{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: var(--orange);
+    top: 0;
+    z-index: 9;
+    border-radius: 0% 0% 0% 100%;
+    left: 0;
+}
+#profile form * {
+    z-index: 99;
+}
+
+#profile form div{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#profile form div button{
+    width: 180px;
+    height: 40px;
+    background-color: var(--orange);
+    color: var(--white);
+}
+
+#profile form div button:last-of-type{
+    background-color: transparent;
+    color: var(--white);
+    border: solid 1px;
+}

@@ -13,7 +13,17 @@ export async function getPosts(page = 1, limit){
     return response
 }
 
+export async function getPostsById(id) {
+  const API = await fetch(`http://localhost:8080/posts/${id}`, {
+    headers: {
+      authorization: localStorage.getItem("token"),
+      "Content-Type": "application/json",
+    },
+  });
 
+  const response = await API.json();
+  return response;
+}
 
 export async function getCommentByPOstId(id) {
   const API = await fetch(`http://localhost:8080/commentsbyPost/${id}`, {
@@ -37,7 +47,6 @@ export async function deletePostById(id) {
         method : "DELETE"
     });
     const response = await API.json();
-    console.log(response)
     if (response?.data == "deleted") {
         return true
     } else {
@@ -47,18 +56,40 @@ export async function deletePostById(id) {
 
 
 export async function PostCreate(body) {
-
-  
   const API = await fetch(`http://localhost:8080/post`, {
     headers: {
       authorization: localStorage.getItem("token"),
-      "Content-Type": "application/json",
     },
     body: body,
-    method : 'POST'
+    method: "POST",
   });
 
   const response = await API.json();
   console.log(response)
-  return response;
+  if (response?.data) {
+    return true
+  } else {
+    return false
+  }
 }
+
+
+export async function UpdatePost(body) {
+  
+  const form = Object.fromEntries(body);
+  const API = await fetch(`http://localhost:8080/post/${form.id}`, {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+    body: body,
+    method: "PUT",
+  });
+
+  const response = await API.json();
+  if (response?.data == "updated") {
+    return true;
+  } else {
+    return false;
+  }
+}
+

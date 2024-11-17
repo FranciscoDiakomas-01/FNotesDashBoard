@@ -3,10 +3,17 @@ import { useState , useEffect } from 'react';
 import { createCategory, getAllCategory } from "../../services/category";
 import { deleteCategory , updateCategory } from '../../services/category';
 import { toast } from 'react-toastify';
+import { FaRegTrashAlt, FaRegEdit } from 'react-icons/fa';
 export default function Category() {
   const [category, setCategory] = useState([])
-  const [reload, setReload] = useState(false);
   const [add, setAdd] = useState(false)
+  const [reload, setReload] = useState(false);
+  const [pagination, setPagination] = useState({
+    lastPage: 0,
+    currentPage: 0,
+    total : 0
+  });
+  const [page, setpage] = useState(1);
   const [updateBody, setUpdateBody] = useState({
     title: "",
     description: "",
@@ -15,15 +22,58 @@ export default function Category() {
   const [edit, setEdit] = useState(false);
     useEffect(() => {
       async function getAll() {
-        const response = await getAllCategory()
-        setCategory(response)
+        const response = await getAllCategory(page)
+        setCategory(response?.data)
+        setPagination((prev) => ({
+          ...prev,
+          currentPage: response?.currentPage,
+          lastPage: response?.lastPage,
+          total : response?.total
+        }));
       }
       getAll()
-    }, [reload]);
+    }, [page , reload]);
     return (
-      <section id="category">
+      <section
+        id="category"
+        onClick={(e) => {
+          if (e.target.id == "form" && add) {
+            setAdd(false);
+          }
+        }}
+      >
+        <form>
+          <button
+            type="button"
+            onClick={() => {
+              if (page == 1) {
+                setpage(pagination.lastPage);
+                return;
+              } else {
+                setpage(prev => prev - 1);
+                return;
+              }
+            }}
+          >
+            {"<"}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              if (pagination.lastPage > page) {
+                setpage((prev) => prev + 1);
+                return;
+              } else {
+                setpage(1);
+                return;
+              }
+            }}
+          >
+            {">"}
+          </button>
+        </form>
         {add && (
-          <aside>
+          <aside id="form">
             <form>
               <h2>Cadastro</h2>
               <label>Título</label>
@@ -49,7 +99,7 @@ export default function Category() {
                   type="submit"
                   onClick={async (e) => {
                     e.preventDefault();
-                    const response = await createCategory(updateBody)
+                    const response = await createCategory(updateBody);
                     if (response) {
                       setReload((prev) => !prev);
                       toast.success("Cadastrado Com Sucesso!!");
@@ -76,7 +126,7 @@ export default function Category() {
         )}
 
         {edit && (
-          <aside>
+          <aside id="form">
             <form>
               <h2>Edição</h2>
               <label>Título</label>
@@ -129,69 +179,58 @@ export default function Category() {
             </form>
           </aside>
         )}
-        {category.length > 0 ? (
-          <table>
-            <thead>
-              <tr>
-                <td>Nome</td>
-                <td>Descrição</td>
-                <td>Data</td>
-                <td>Remoção</td>
-                <td>salvar</td>
-              </tr>
-            </thead>
-            <tbody>
-              {category.length > 0 &&
-                category.map((ct, index) => (
-                  <tr key={ct.id}>
-                    <td>{ct.title}</td>
-                    <td>{ct.description}</td>
-                    <td>{ct.created_at}</td>
-                    <td>
-                      <button
-                        onClick={async (e) => {
-                          e.preventDefault();
-                          const response = await deleteCategory(ct.id);
-                          if (response) {
-                            setReload((prev) => !prev);
-                            return toast.success("Deletedado Com Sucesso!");
-                          } else {
-                            return toast.error("Erro ao Deleter!");
-                          }
-                        }}
-                      >
-                        Del
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        onClick={() => {
-                          setUpdateBody((prev) => ({
-                            ...prev,
-                            title: category[index]?.title,
-                            description: category[index]?.description,
-                            id: category[index]?.id,
-                          }));
-                          setEdit(true);
-                        }}
-                      >
-                        Actualizar
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        ) : (
-          <h1>Nenhuma Categoria Cadastrada</h1>
-        )}
+        <article>
+          {category.length > 0 &&
+            category.map((ct, index) => (
+              <figure key={ct.id}>
+                <figcaption>
+                  <span>
+                    {ct.title[0]?.toUpperCase() + ct.title.slice(1, 3)}
+                  </span>
+                  <p>{ct.title}</p>
+                  <p>{ct.created_at}</p>
+                  <div>
+                    <button
+                      onClick={async (e) => {
+                        e.preventDefault();
+                        const response = await deleteCategory(ct.id);
+                        if (response) {
+                          setReload((prev) => !prev);
+                          return toast.success("Deletedado Com Sucesso!");
+                        } else {
+                          return toast.error("Erro ao Deleter!");
+                        }
+                      }}
+                    >
+                      <FaRegTrashAlt />
+                    </button>
+                    <button
+                      onClick={() => {
+                        setUpdateBody((prev) => ({
+                          ...prev,
+                          title: category[index]?.title,
+                          description: category[index]?.description,
+                          id: category[index]?.id,
+                        }));
+                        setEdit(true);
+                      }}
+                    >
+                      <FaRegEdit />
+                    </button>
+                  </div>
+                </figcaption>
+                <p>{ct.description}</p>
+              </figure>
+            ))}
+        </article>
         <button
           onClick={() => {
-            setAdd(true);
+            setAdd((prev) => !prev);
           }}
         >
-          +
+          {add ? "-" : "+"}
         </button>
+        <span>{pagination?.currentPage + " de " + pagination?.lastPage}</span>
       </section>
     );
 }

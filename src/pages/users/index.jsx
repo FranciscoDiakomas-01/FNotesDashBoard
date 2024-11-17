@@ -1,6 +1,5 @@
 import './index.css'
 import { useState, useEffect } from 'react';
-import { FaSearch } from 'react-icons/fa';
 import { getUsers , deleteUserById } from '../../services/user';
 import { toast } from 'react-toastify';
 export default function Users() {
@@ -43,10 +42,6 @@ export default function Users() {
        >
          {"<"}
        </button>
-       <div>
-         <input placeholder="Pesquise pelo nome do usuário" />
-         <FaSearch />
-       </div>
        <button
          type="button"
          onClick={() => {
@@ -63,7 +58,7 @@ export default function Users() {
        </button>
      </form>
      <article>
-       {users.map((user) => (
+       { Array.isArray(users) && users.map((user) => (
          <figure key={user.id}>
            <span>
              {user.name[0]?.toUpperCase() + user.name.slice(1,3)}{" "}

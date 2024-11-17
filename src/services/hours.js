@@ -12,13 +12,14 @@ export default function Hours(){
         'Sábado'
     ]
     const date = {
-        time: D.getTime(),
-        hours: D.getHours(),
-        minutes: D.getMinutes(),
-        seconds: D.getSeconds() ,
-        day: D.getDate(),
-        dayWeek: dayWeek[D.getDay()],
-        year : D.getFullYear()
-    }
+      time: D.getTime(),
+      hours: D.getHours().toString().padStart(1, "0"),
+      minutes: D.getMinutes().toString().padStart(1, "0"),
+      seconds: D.getSeconds().toString().padStart(1, "0"),
+      day: D.getDate(),
+      dayWeek: dayWeek[D.getDay()],
+      year: D.getFullYear(),
+      month: D.getMonth() + 1,
+    };
     return date
 }

@@ -5,9 +5,11 @@ import { LuLayoutGrid } from "react-icons/lu";
 import getAdminData from '../../services/getAdminData';
 import GetDashBoardData from '../../services/dashBoard,';
 import Hours from '../../services/hours';
+import { useNavigate } from 'react-router-dom';
 export default function DashBoard() {
   const [ data , setData ] = useState([])
   const [user, setUser] = useState([])
+  const navigate = useNavigate()
   const [date, setDate] = useState({
     time: "0",
     hours: "0",
@@ -38,14 +40,23 @@ export default function DashBoard() {
      <article>
        <aside>
          <span>
-           <h1>Bem Vindo Ao Painel de Administrador</h1>
+           <h1>
+             {date?.hours >= 0 && date?.hours <= 11
+               ? "Bom dia Administador"
+               : date?.hours >= 12 && date?.hours <= 17
+               ? "Boa dia Administador"
+               : "Boa noite Administador"
+               }
+           </h1>
            {Array.isArray(user) && user.length > 0 && (
              <>
                <p>{user[0]?.name}</p>
                <i>{user[0]?.email}</i>
              </>
            )}
-           <button>Meu Perfil</button>
+           <button onClick={() => {
+             navigate("/profile")
+           }}>Meu Perfil</button>
          </span>
          <img src={img} alt={img} />
        </aside>
@@ -54,13 +65,13 @@ export default function DashBoard() {
          <div>
            <h2>{date?.dayWeek}</h2>
            <p>
-             {date?.hours +
+             {date?.hours.length +
                " : " +
-               date?.minutes?.toString()?.padStart(1, "0") +
+               date?.minutes +
                " : " +
-               date?.seconds?.toString()?.padStart(1, "0")}
+               date?.seconds}
            </p>
-           <p>{date?.day + " : " + date?.year}</p>
+           <p>{date?.day + " / " + date?.month + " / " + date?.year}</p>
          </div>
        </span>
      </article>

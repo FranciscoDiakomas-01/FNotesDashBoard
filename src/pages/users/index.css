@@ -50,35 +50,13 @@
 }
 #users form {
     width: 100%;
-    margin-top: 40px;
+    margin-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 40px;
 }
-#users form  div{
-    width: 600px;
-    position: relative;
-    transition: all .5s linear;
-}
 
-#users form  input{
-    width: 100%;
-    height: 60px;
-    box-shadow: 3px 3px 3px #0000001c;
-    border: solid #0000001c 1px;
-    outline: none;
-    padding-left: 10px;
-    font-size: 12pt;
-}
-
-#users form  svg{
-    position: absolute;
-    bottom: 20px;
-    font-size: 14pt;
-    color: var(--orange);
-    right: 20px;
-}
 #users form  button{
     background-color: var(--orange);
     height: 50px;
